@@ -667,7 +667,6 @@ impl Session {
 
     /// Close a channel.
     pub fn close(&mut self, channel: ChannelId) {
-        self.exit_status_request(channel, 0);
         self.common.byte(channel, msg::CHANNEL_CLOSE);
     }
 
