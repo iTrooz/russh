@@ -647,6 +647,10 @@ impl Session {
                     chan.send(ChannelMsg::Eof).unwrap_or(())
                 }
                 debug!("handler.channel_eof {:?}", channel_num);
+
+                self.exit_status_request(channel_num, 0);
+                self.common.byte(channel_num, msg::CHANNEL_CLOSE);
+
                 handler.channel_eof(channel_num, self).await
             }
             Some(&msg::CHANNEL_EXTENDED_DATA) | Some(&msg::CHANNEL_DATA) => {
