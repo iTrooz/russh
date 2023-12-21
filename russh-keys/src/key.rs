@@ -396,13 +396,13 @@ impl KeyPair {
     }
 
     /// Generate a key pair.
-    pub fn generate_ed25519() -> Option<Self> {
+    pub fn generate_ed25519() -> Self {
         let keypair = ed25519_dalek::SigningKey::generate(&mut OsRng {});
         assert_eq!(
             keypair.verifying_key().as_bytes(),
             ed25519_dalek::VerifyingKey::from(&keypair).as_bytes()
         );
-        Some(KeyPair::Ed25519(keypair))
+        KeyPair::Ed25519(keypair)
     }
 
     #[cfg(feature = "openssl")]
